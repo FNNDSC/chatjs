@@ -1,0 +1,2 @@
+# chatjs
+A chat object.
