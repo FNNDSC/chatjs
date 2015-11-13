@@ -13,6 +13,7 @@
 .ui-dialog-titlebar{
   margin: 0;
   color: #633A05;
+  font-size: 0.9em;
 }
 .ui-dialog .ui-dialog-content{
   margin: 0;
@@ -62,7 +63,7 @@
   height: 100%;
   border: 1px solid;
   margin: 0;
-  font-size: 1em;
+  font-size: 0.8em;
 }
 /*room id text*/
 .view-chat-msgarea-header{
@@ -112,7 +113,7 @@
   width: 130px;
   height: 100%;
   font-size: small;
-  color: black;
+  color: #633A05;
 }
 .view-chat-msgarea-input-button-theme1{
   background-color: #DDE8BB;
@@ -130,7 +131,7 @@
 .view-chat-preferences{
   background-color: black;
   color: #DDE8BB;
-  font-size: 0.9em;
+  font-size: 0.8em;
   width: 100%;
   height: 100%;
   padding: 10px;
@@ -139,7 +140,7 @@
 .view-chat-preferences h3{
   margin: 2px;
   color: #C5B582;
-  font-size: 1em;
+  font-size: 0.9em;
 }
 .view-chat-preferences div{
   margin: 2px 2px 12px 6px;
@@ -147,6 +148,6 @@
 .view-chat-preferences-fontsize{
   cursor: pointer;
   margin: 0 4px 0 6px;
-  font-size: 1.1em;
+  font-size: 0.9em;
   font-weight: bold;
 }
