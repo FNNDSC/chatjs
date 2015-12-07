@@ -21,10 +21,13 @@ define(['jqdlgext'], function() {
     chatjs.Chat = function(collab) {
 
       this.version = 0.0;
-      // jQuery chat object (chat window content)
-      this.jqChat = null;
+
+      // chat's container (chat window content)
+      this.container = null;
+
       // jQuery preferences object (preferences window content)
       this.jqPreferences = null;
+
       // collaborator object
       this.collab = collab;
     };
@@ -33,6 +36,7 @@ define(['jqdlgext'], function() {
     * Initialize the chat.
     */
     chatjs.Chat.prototype.init = function() {
+
       this.initChatWindow();
       this.initPreferencesWindow();
       this.collab.sendChatMsg('I have connected!');
@@ -43,12 +47,12 @@ define(['jqdlgext'], function() {
     * Initilize Chat window's HTML and event handlers.
     */
     chatjs.Chat.prototype.initChatWindow = function() {
-      var jqChat = $('<div></div>');
+      var container = $('<div></div>');
       var self = this;
 
-      this.jqChat = jqChat;
+      self.container = container;
       // convert the previous div into a floating window with minimize, collapse and expand buttons
-      jqChat.dialog({
+      container.dialog({
         title: "Collaboration chat",
         closeOnEscape: false,
         minHeight: 350,
@@ -67,17 +71,17 @@ define(['jqdlgext'], function() {
      });
 
      // add the preferences button to the floating window's title bar
-     $('.ui-dialog-titlebar-buttonpane', jqChat.parent()).append(
+     $('.ui-dialog-titlebar-buttonpane', container.parent()).append(
        '<a class="ui-dialog-titlebar-preferences ui-corner-all ui-state-default" href="#" role="button">' +
        '<span class="ui-icon ui-icon-gear" title="preferences">preferences</span></a>'
      );
 
      // add the HTML contents to the floating window
-     jqChat.append(
+     container.append(
        '<div class="view-chat-usersarea view-chat-usersarea-theme1"><ul></ul></div>' +
        '<div class="view-chat-msgarea view-chat-theme1">' +
          '<div class="view-chat-msgarea-header view-chat-msgarea-header-theme1">Room id: ' +
-            this.collab.realtimeFileId + '</div>' +
+            self.collab.realtimeFileId + '</div>' +
          '<textarea class="view-chat-msgarea-text view-chat-theme1" disabled>You are connected!</textarea>' +
          '<div class="view-chat-msgarea-input view-chat-theme1">' +
            '<button class="view-chat-msgarea-input-button view-chat-msgarea-input-button-theme1"' +
@@ -87,17 +91,17 @@ define(['jqdlgext'], function() {
        '</div>'
      );
 
-     $(self.jqChat.parent()).css('borderColor', $('.view-chat-msgarea', self.jqChat).css('borderColor'));
+     $(self.container.parent()).css('borderColor', $('.view-chat-msgarea', self.container).css('borderColor'));
 
      // lay out elements
-     this.layoutChatWindow();
+     self.layoutChatWindow();
 
      //
      // UI event handlers
      //
-     var jqButtonPreferences = $('.ui-dialog-titlebar-preferences', jqChat.parent());
-     var jqButtonSend = $('button', jqChat);
-     var jqInput = $('input', jqChat);
+     var jqButtonPreferences = $('.ui-dialog-titlebar-preferences', container.parent());
+     var jqButtonSend = $('button', container);
+     var jqInput = $('input', container);
 
      // Title bar's Preferences (gear) button click
      jqButtonPreferences.mouseover(function() {
@@ -138,11 +142,11 @@ define(['jqdlgext'], function() {
      * Lay out the chat window.
      */
     chatjs.Chat.prototype.layoutChatWindow = function() {
-      var jqChatMsgArea = $('.view-chat-msgarea', this.jqChat);
-      var headerHeight = parseInt($('.view-chat-msgarea-header', jqChatMsgArea).css('height'));
-      var inputAreaHeight = parseInt($('.view-chat-msgarea-input', jqChatMsgArea).css('height'));
+      var msgArea = $('.view-chat-msgarea', this.container);
+      var headerHeight = parseInt($('.view-chat-msgarea-header', msgArea).css('height'));
+      var inputAreaHeight = parseInt($('.view-chat-msgarea-input', msgArea).css('height'));
 
-      $('.view-chat-msgarea-text', jqChatMsgArea).css({
+      $('.view-chat-msgarea-text', msgArea).css({
         top: headerHeight + 'px',
         height: 'calc(100% - ' + (inputAreaHeight+headerHeight) + 'px)'
       });
@@ -155,7 +159,7 @@ define(['jqdlgext'], function() {
        var jqPreferences = $('<div></div>');
        var self = this;
 
-       this.jqPreferences = jqPreferences;
+       self.jqPreferences = jqPreferences;
        // convert the previous div into a floating window with a close button
        jqPreferences.dialog({
          title: "Preferences",
@@ -213,7 +217,7 @@ define(['jqdlgext'], function() {
        jqPreferences.data('preferences', {
          msgStyle: 'headerbefore',
          msgHeaderInfo: 'name',
-         fontSize: $('.view-chat-msgarea-text', this.jqChat).css('fontSize'),
+         fontSize: $('.view-chat-msgarea-text', self.container).css('fontSize'),
          fontFamily: {standard: 'sans-serif', fixedwidth: 'monospace'},
          currentTheme: 'darkbackground',
          themes: {
@@ -243,8 +247,11 @@ define(['jqdlgext'], function() {
          var value = $(this).attr('value');
 
          if (name === 'msgstyle') {
+
            preferences.msgStyle = value;
+
          } else {
+
            preferences.msgHeaderInfo = value;
          }
 
@@ -261,12 +268,15 @@ define(['jqdlgext'], function() {
          var delta = 0;
 
          if (title === 'increase') {
+
            if (measUnit === 'px' && size < 22) {
              delta = 1;
            } else if (measUnit === 'em' && size < 1.5) {
              delta = 0.1;
            }
+
          } else {
+
            if (measUnit === 'px' && size > 10) {
              delta = -1;
            } else if (measUnit === 'em' && size > 0.8) {
@@ -276,8 +286,8 @@ define(['jqdlgext'], function() {
 
          preferences.fontSize = (size + delta) + measUnit;
          jqPreferences.data('preferences', preferences);
-         $('.view-chat-msgarea-text', self.jqChat).css({ fontSize: preferences.fontSize });
-         $('.view-chat-msgarea-input-input', self.jqChat).css({ fontSize: preferences.fontSize });
+         $('.view-chat-msgarea-text', self.container).css({ fontSize: preferences.fontSize });
+         $('.view-chat-msgarea-input-input', self.container).css({ fontSize: preferences.fontSize });
          self.layoutChatWindow();
        });
 
@@ -286,8 +296,8 @@ define(['jqdlgext'], function() {
          var preferences = jqPreferences.data('preferences');
          var value = $(this).attr('value');
 
-         $('.view-chat-msgarea-text', self.jqChat).css('fontFamily', preferences.fontFamily[value]);
-         $('.view-chat-msgarea-input-input', self.jqChat).css('fontFamily', preferences.fontFamily[value]);
+         $('.view-chat-msgarea-text', self.container).css('fontFamily', preferences.fontFamily[value]);
+         $('.view-chat-msgarea-input-input', self.container).css('fontFamily', preferences.fontFamily[value]);
          self.layoutChatWindow();
        });
 
@@ -300,15 +310,15 @@ define(['jqdlgext'], function() {
 
          preferences.currentTheme = value;
 
-         $('.view-chat-usersarea', self.jqChat).removeClass(prevTheme.userAreaTheme).addClass(newTheme.userAreaTheme);
-         $('.view-chat-msgarea', self.jqChat).removeClass(prevTheme.generalTheme).addClass(newTheme.generalTheme);
-         $('.view-chat-msgarea-header', self.jqChat).removeClass(prevTheme.headerAreaTheme).addClass(newTheme.headerAreaTheme);
-         $('.view-chat-msgarea-text', self.jqChat).removeClass(prevTheme.generalTheme).addClass(newTheme.generalTheme);
-         $('.view-chat-msgarea-input', self.jqChat).removeClass(prevTheme.generalTheme).addClass(newTheme.generalTheme);
-         $('.view-chat-msgarea-input-input', self.jqChat).removeClass(prevTheme.generalTheme).addClass(newTheme.generalTheme);
-         $('.view-chat-msgarea-input-button', self.jqChat).removeClass(prevTheme.buttonSendTheme).addClass(newTheme.buttonSendTheme);
+         $('.view-chat-usersarea', self.container).removeClass(prevTheme.userAreaTheme).addClass(newTheme.userAreaTheme);
+         $('.view-chat-msgarea', self.container).removeClass(prevTheme.generalTheme).addClass(newTheme.generalTheme);
+         $('.view-chat-msgarea-header', self.container).removeClass(prevTheme.headerAreaTheme).addClass(newTheme.headerAreaTheme);
+         $('.view-chat-msgarea-text', self.container).removeClass(prevTheme.generalTheme).addClass(newTheme.generalTheme);
+         $('.view-chat-msgarea-input', self.container).removeClass(prevTheme.generalTheme).addClass(newTheme.generalTheme);
+         $('.view-chat-msgarea-input-input', self.container).removeClass(prevTheme.generalTheme).addClass(newTheme.generalTheme);
+         $('.view-chat-msgarea-input-button', self.container).removeClass(prevTheme.buttonSendTheme).addClass(newTheme.buttonSendTheme);
 
-         $(self.jqChat.parent()).css('borderColor', $('.view-chat-msgarea', self.jqChat).css('borderColor'));
+         $(self.container.parent()).css('borderColor', $('.view-chat-msgarea', self.container).css('borderColor'));
        });
     };
 
@@ -318,7 +328,7 @@ define(['jqdlgext'], function() {
      * @param {Obj} chat message object.
      */
      chatjs.Chat.prototype.updateTextArea = function(msgObj) {
-       var chatTextarea = $('.view-chat-msgarea-text', this.jqChat)[0];
+       var chatTextarea = $('.view-chat-msgarea-text', this.container)[0];
        var preferences = this.jqPreferences.data('preferences');
        var time = "";
 
@@ -332,11 +342,15 @@ define(['jqdlgext'], function() {
        }
 
        if (preferences.msgStyle === 'headerbefore') {
+
          chatTextarea.innerHTML += '&#xA;' + time + msgObj.user + ': ' + msgObj.msg;
+
        } else {
+
          // header above msg
          chatTextarea.innerHTML += '&#xA;' + time + msgObj.user + ':' + '&#xA;' + msgObj.msg;
        }
+
        // scroll down to show last msg
        chatTextarea.scrollTop = chatTextarea.scrollHeight;
     };
@@ -346,13 +360,17 @@ define(['jqdlgext'], function() {
      */
      chatjs.Chat.prototype.updateCollaboratorList = function() {
        var collaborators = this.collab.getCollaboratorList();
-       var jqUsersArea = $('.view-chat-usersarea', this.jqChat);
+       var jqUsersArea = $('.view-chat-usersarea', this.container);
        var ul = $('ul', jqUsersArea).empty();
 
        for (var i=0; i<collaborators.length; i++) {
+
          if (collaborators[i].id === this.collab.collaboratorInfo.id) {
+
            ul.prepend('<li>' + this.collab.collaboratorInfo.name + ' (me)</li>');
+
          } else {
+
            ul.append('<li>' + collaborators[i].name + '</li>');
          }
        }
@@ -362,32 +380,37 @@ define(['jqdlgext'], function() {
      * Hide chat window.
      */
      chatjs.Chat.prototype.close = function() {
-       this.jqChat.dialog("close");
+
+       this.container.dialog("close");
     };
 
     /**
      * Show chat window.
      */
      chatjs.Chat.prototype.open = function() {
-       this.jqChat.dialog("open");
+
+       this.container.dialog("open");
     };
 
     /**
      * Whether the chat is currently open.
      */
      chatjs.Chat.prototype.isOpen = function() {
-       return this.jqChat.dialog("isOpen");
+
+       return this.container.dialog("isOpen");
     };
 
     /**
      * Destroy all objects and remove html interface
      */
      chatjs.Chat.prototype.destroy = function() {
-       this.jqChat.dialogExtend("restore");
-       this.jqChat.dialog("destroy");
+
+       this.container.dialogExtend("restore");
+       this.container.dialog("destroy");
        this.jqPreferences.dialog("destroy");
-       this.jqChat.empty();
+       this.container.empty();
     };
+
 
     return chatjs;
   });
