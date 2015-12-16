@@ -2,17 +2,30 @@
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
+  font-family: 'Droid Sans', sans-serif !important;
+}
+
+/*overwrite jquery UI*/
+.ui-corner-all{
+   border-radius: 0px !important;
+}
+
+.ui-widget-header{
+  border:none !important;
+  background: none !important;
+  background-color: #F9F9F9 !important;
+  font-weight:normal!important;
 }
 
 /*================================================= CHAT ================================================== */
 .ui-dialog{
   padding: 0;
-  border: 2px solid;
+  border: 1px solid;
   margin: 0;
 }
 .ui-dialog-titlebar{
   margin: 0;
-  color: #633A05;
+  color: #212121;
   font-size: 0.9em;
 }
 .ui-dialog .ui-dialog-content{
@@ -20,14 +33,14 @@
   padding: 0;
 }
 .view-chat-theme1{
-  border-color: #DDE8BB;
-  background-color: black;
-  color: #DDE8BB;
+  border-color: #F9F9F9;
+  background-color: #212121;
+  color: #F9F9F9;
 }
 .view-chat-theme2{
-  border-color: #503C0C;
-  background-color: #F8FBEE;
-  color: #503C0C;
+  border-color: #F9F9F9;
+  background-color: #212121;
+  color: #F9F9F9;
 }
 /*List of connected users*/
 .view-chat-usersarea{
@@ -45,14 +58,14 @@
   color: #EC9F3A;
 }
 .view-chat-usersarea-theme1{
-  border-color: #DDE8BB;
-  background-color: black;
-  color: #EC9F3A;
+  border-color: #F9F9F9;
+  background-color: #212121;
+  color: #F9F9F9;
 }
 .view-chat-usersarea-theme2{
-  border-color: #503C0C;
-  background-color: #F8FBEE;
-  color: #925109;
+  border-color: #212121;
+  background-color: #F9F9F9;
+  color: #212121;
 }
 /*whole chat elements container to the right of the list of connected users*/
 .view-chat-msgarea{
@@ -76,16 +89,17 @@
   width: 100%;
   overflow: auto;
   padding: 2px 4px;
+  font-weight: lighter;
 }
 .view-chat-msgarea-header-theme1{
-  border-color: #DDE8BB;
-  background-color: black;
-  color: #E4AD00;
+  border-color: #F9F9F9;
+  background-color: #757575;
+  color: #BDBDBD;
 }
 .view-chat-msgarea-header-theme2{
-  border-color: #503C0C;
-  background-color: #F8FBEE;
-  color: #825001;
+  border-color: #F9F9F9;
+  background-color: #E0E0E0;
+  color: #616161;
 }
 /*chat msg area*/
 .view-chat-msgarea-text{
@@ -94,6 +108,7 @@
   border: 1px solid;
   margin: 0;
   padding: 6px 4px;
+  font-weight: lighter;
 }
 /*container of the 'send msg' button and input field*/
 .view-chat-msgarea-input{
@@ -113,15 +128,19 @@
   width: 130px;
   height: 100%;
   font-size: small;
-  color: #633A05;
+  font-weight: lighter;
+  border:none !important;
 }
 .view-chat-msgarea-input-button-theme1{
-  background-color: #DDE8BB;
+  color: #F9F9F9;
+  background-color: #607D8B;
 }
 .view-chat-msgarea-input-button-theme2{
-  background-color: #DBDCD7;
+  color: #F9F9F9;
+  background-color: #607D8B;
 }
 .view-chat-msgarea-input-input{
+  font-weight: lighter;
   margin: 0;
   border: 0;
   padding: 0 4px;
@@ -129,9 +148,10 @@
 }
 /*================================================= CHAT PREFERENCES WINDOW =================== */
 .view-chat-preferences{
-  background-color: black;
-  color: #DDE8BB;
+  background-color: #212121;
+  color: #F9F9F9;
   font-size: 0.8em;
+  font-weight: lighter;
   width: 100%;
   height: 100%;
   padding: 10px;
@@ -139,8 +159,8 @@
 }
 .view-chat-preferences h3{
   margin: 2px;
-  color: #C5B582;
-  font-size: 0.9em;
+  color: #607D8B;
+  font-weight: lighter;
 }
 .view-chat-preferences div{
   margin: 2px 2px 12px 6px;

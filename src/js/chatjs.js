@@ -84,9 +84,9 @@ define(['jqdlgext'], function() {
             self.collab.realtimeFileId + '</div>' +
          '<textarea class="view-chat-msgarea-text view-chat-theme1" disabled>You are connected!</textarea>' +
          '<div class="view-chat-msgarea-input view-chat-theme1">' +
-           '<button class="view-chat-msgarea-input-button view-chat-msgarea-input-button-theme1"' +
-              'type="button">Send msg</button>' +
            '<input class="view-chat-msgarea-input-input view-chat-theme1" type="text">' +
+           '<button class="view-chat-msgarea-input-button view-chat-msgarea-input-button-theme1"' +
+             'type="button">Send msg</button>' +
          '</div>' +
        '</div>'
      );
