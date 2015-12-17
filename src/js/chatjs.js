@@ -91,7 +91,7 @@ define(['jqdlgext'], function() {
        '</div>'
      );
 
-     $(self.container.parent()).css('borderColor', $('.view-chat-msgarea', self.container).css('borderColor'));
+     $(self.container.parent()).css('borderColor', $('.ui-dialog-titlebar', self.container).css('color'));
 
      // lay out elements
      self.layoutChatWindow();
@@ -207,9 +207,9 @@ define(['jqdlgext'], function() {
           '<h3>Themes</h3>' +
           '<div>' +
             '<input class="view-chat-preferences-theme" type="radio" name="theme" value="darkbackground"' +
-              ' checked="checked">Light font on dark background<br>' +
+              ' checked="checked">Dark<br>' +
             '<input class="view-chat-preferences-theme" type="radio" name="theme" value="lightbackground"' +
-              '>Dark font on light background' +
+              '>Light' +
           '</div>' +
        '</div>'
        );

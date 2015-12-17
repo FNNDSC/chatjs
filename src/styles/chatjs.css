@@ -2,45 +2,26 @@
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  font-family: 'Droid Sans', sans-serif !important;
-}
-
-/*overwrite jquery UI*/
-.ui-corner-all{
-   border-radius: 0px !important;
-}
-
-.ui-widget-header{
-  border:none !important;
-  background: none !important;
-  background-color: #F9F9F9 !important;
-  font-weight:normal!important;
+  font-family: 'Droid Sans', sans-serif;
 }
 
 /*================================================= CHAT ================================================== */
-.ui-dialog{
-  padding: 0;
+.ui-dialog.ui-widget.ui-widget-content{
   border: 1px solid;
-  margin: 0;
 }
+
 .ui-dialog-titlebar{
-  margin: 0;
   color: #212121;
-  font-size: 0.9em;
+  font-weight: lighter;
+  border-top:0;
+  border-left:0;
+  border-right:0;
 }
-.ui-dialog .ui-dialog-content{
+
+.ui-dialog, .ui-dialog-content{
+  border:0;
   margin: 0;
   padding: 0;
-}
-.view-chat-theme1{
-  border-color: #F9F9F9;
-  background-color: #212121;
-  color: #F9F9F9;
-}
-.view-chat-theme2{
-  border-color: #F9F9F9;
-  background-color: #212121;
-  color: #F9F9F9;
 }
 /*List of connected users*/
 .view-chat-usersarea{
@@ -49,7 +30,7 @@
   left: 0;
   height: 100%;
   width: 180px;
-  border: 1px solid;
+  border-right: 1px solid;
   margin: 0;
   font-size: 0.8em;
   padding: 4px;
@@ -74,7 +55,7 @@
   right: 0;
   width: calc(100% - 180px);
   height: 100%;
-  border: 1px solid;
+  /*border: 1px solid;*/
   margin: 0;
   font-size: 0.8em;
 }
@@ -83,8 +64,8 @@
   position: absolute;
   top: 0;
   margin: 0;
-  border: 1px solid;
-  border-top: 0;
+  /*border-top: 1px solid;*/
+  /*border-top: 0;*/
   height: 2em;
   width: 100%;
   overflow: auto;
@@ -92,12 +73,12 @@
   font-weight: lighter;
 }
 .view-chat-msgarea-header-theme1{
-  border-color: #F9F9F9;
+  border-color: #757575;
   background-color: #757575;
   color: #BDBDBD;
 }
 .view-chat-msgarea-header-theme2{
-  border-color: #F9F9F9;
+  border-color: #E0E0E0;
   background-color: #E0E0E0;
   color: #616161;
 }
@@ -105,7 +86,7 @@
 .view-chat-msgarea-text{
   position: absolute;
   width: 100%;
-  border: 1px solid;
+  border: 0;
   margin: 0;
   padding: 6px 4px;
   font-weight: lighter;
@@ -115,8 +96,8 @@
   position: absolute;
   width: 100%;
   bottom: 0;
-  border: 1px solid;
-  border-top: 2px solid;
+  /*border: 1px solid;*/
+  border-top: 1px solid;
   margin: 0;
   height: 2em;
 }
@@ -145,6 +126,17 @@
   border: 0;
   padding: 0 4px;
   width: calc(100% - 130px);
+}
+
+.view-chat-theme1{
+  border-color: #F9F9F9;
+  background-color: #212121;
+  color: #F9F9F9;
+}
+.view-chat-theme2{
+  border-color: #212121;
+  background-color: #F9F9F9;
+  color: #212121;
 }
 /*================================================= CHAT PREFERENCES WINDOW =================== */
 .view-chat-preferences{
