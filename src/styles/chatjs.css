@@ -74,9 +74,18 @@
   border-top: 0;
   height: 2em;
   width: 100%;
-  overflow: auto;
-  padding: 2px 4px;
+  vertical-align: middle;
+  line-height: 2em;
 }
+
+.view-chat-msgarea-header > span{
+  display: block;
+  width: calc(100% - 130px);
+  padding-left: 2px;
+  overflow: auto;
+  float: left;
+}
+
 .view-chat-msgarea-header-theme1{
   border-color: #DDE8BB;
   background-color: black;
@@ -105,20 +114,20 @@
   margin: 0;
   height: 2em;
 }
-.view-chat-msgarea-input-button{
+.view-chat-msgarea button{
   cursor: pointer;
   margin: 0;
   padding: 1px 2px;
-  overflow: hidden;
   width: 130px;
   height: 100%;
-  font-size: small;
+  font-size: 18px;
   color: #633A05;
+  float: left;
 }
-.view-chat-msgarea-input-button-theme1{
+.view-chat-msgarea-button-theme1{
   background-color: #DDE8BB;
 }
-.view-chat-msgarea-input-button-theme2{
+.view-chat-msgarea-button-theme2{
   background-color: #DBDCD7;
 }
 .view-chat-msgarea-input-input{
@@ -127,6 +136,7 @@
   padding: 0 4px;
   width: calc(100% - 130px);
 }
+
 /*================================================= CHAT PREFERENCES WINDOW =================== */
 .view-chat-preferences{
   background-color: black;
@@ -150,4 +160,40 @@
   margin: 0 4px 0 6px;
   font-size: 0.9em;
   font-weight: bold;
+}
+
+/*================================================= CHAT MAIL WINDOW =================== */
+.view-chat-mail{
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  overflow: auto;
+}
+
+.view-chat-mail-text{
+  position: absolute;
+  top: 0;
+  left: 0;
+  border: 1px solid;
+  width: 100%;
+  height: calc(100% - 30px);
+  margin: 0;
+  padding: 6px 4px;
+  position: relative;
+  color: #DDE8BB;
+  font-size: 0.8em;
+  background-color: black;
+}
+
+.view-chat-mail button{
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  cursor: pointer;
+  margin: 0;
+  padding: 1px 2px;
+  width: 100%;
+  height: 30px;
+  font-size: 18px;
+  color: #633A05;
 }

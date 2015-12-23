@@ -25,8 +25,11 @@ define(['jqdlgext'], function() {
       // chat's container (chat window content)
       this.container = null;
 
-      // jQuery preferences object (preferences window content)
+      // jQuery object for the preferences' dialog window
       this.jqPreferences = null;
+
+      // jQuery object for the mail's dialog window
+      this.jqMail = null;
 
       // collaborator object
       this.collab = collab;
@@ -39,6 +42,7 @@ define(['jqdlgext'], function() {
 
       this.initChatWindow();
       this.initPreferencesWindow();
+      this.initMailWindow();
       this.collab.sendChatMsg('I have connected!');
       this.updateCollaboratorList();
     };
@@ -47,18 +51,19 @@ define(['jqdlgext'], function() {
     * Initilize Chat window's HTML and event handlers.
     */
     chatjs.Chat.prototype.initChatWindow = function() {
-      var container = $('<div></div>');
       var self = this;
 
+      var container = $('<div></div>');
       self.container = container;
+
       // convert the previous div into a floating window with minimize, collapse and expand buttons
       container.dialog({
         title: "Collaboration chat",
         closeOnEscape: false,
-        minHeight: 350,
-        height: 400,
-        minWidth: 550,
-        width: 650
+        minHeight: 400,
+        height: 500,
+        minWidth: 700,
+        width: 800
       }).dialogExtend({
        "closable" : false,
        "maximizable" : true,
@@ -78,18 +83,28 @@ define(['jqdlgext'], function() {
 
      // add the HTML contents to the floating window
      container.append(
+
        '<div class="view-chat-usersarea view-chat-usersarea-theme1"><ul></ul></div>' +
        '<div class="view-chat-msgarea view-chat-theme1">' +
-         '<div class="view-chat-msgarea-header view-chat-msgarea-header-theme1">Room id: ' +
-            self.collab.realtimeFileId + '</div>' +
+         '<div class="view-chat-msgarea-header view-chat-msgarea-header-theme1">' +
+          '<button class="view-chat-msgarea-button view-chat-msgarea-button-theme1" type="button" ' +
+            'title="Mail roomd id to collaborators">Mail</button>' +
+          '<span>Room id: ' + self.collab.realtimeFileId + '</span>' +
+         '</div>' +
          '<textarea class="view-chat-msgarea-text view-chat-theme1" disabled>You are connected!</textarea>' +
          '<div class="view-chat-msgarea-input view-chat-theme1">' +
-           '<button class="view-chat-msgarea-input-button view-chat-msgarea-input-button-theme1"' +
-              'type="button">Send msg</button>' +
+           '<button class="view-chat-msgarea-button view-chat-msgarea-button-theme1" type="button">Send msg</button>' +
            '<input class="view-chat-msgarea-input-input view-chat-theme1" type="text">' +
          '</div>' +
        '</div>'
      );
+
+     // hide the mail button for non-scene owners
+     var jqButtonMail = $('.view-chat-msgarea-header .view-chat-msgarea-button', container);
+
+     if (!self.collab.collabOwner) {
+       jqButtonMail.css('display', 'none');
+     }
 
      $(self.container.parent()).css('borderColor', $('.view-chat-msgarea', self.container).css('borderColor'));
 
@@ -100,28 +115,40 @@ define(['jqdlgext'], function() {
      // UI event handlers
      //
      var jqButtonPreferences = $('.ui-dialog-titlebar-preferences', container.parent());
-     var jqButtonSend = $('button', container);
-     var jqInput = $('input', container);
+     var jqButtonSend = $('.view-chat-msgarea-input .view-chat-msgarea-button', container);
+     var jqInput = $('.view-chat-msgarea-input-input', container);
 
      // Title bar's Preferences (gear) button click
      jqButtonPreferences.mouseover(function() {
+
        return $(this).addClass("ui-state-hover");
+
      }).mouseout(function() {
+
        return $(this).removeClass("ui-state-hover");
+
      }).focus(function() {
+
        return $(this).addClass("ui-state-focus");
+
      }).blur(function() {
+
        return $(this).removeClass("ui-state-focus");
+
      }).click(function() {
+
        self.jqPreferences.dialog("open");
      });
 
      // Send msg button click
      jqButtonSend.click(function() {
+
        var text = jqInput[0].value;
 
        if (text) {
+
          jqInput[0].value = '';
+
          // create a chat message object
          var msgObj = {user: self.collab.collaboratorInfo.name, msg: text};
          self.updateTextArea(msgObj);
@@ -129,8 +156,18 @@ define(['jqdlgext'], function() {
        }
      });
 
+     // Send msg button click
+     jqButtonMail.click(function() {
+
+       var mailTextarea = $('.view-chat-mail-text', self.jqMail)[0];
+       mailTextarea.value = "Enter a collaborator's email address per line:\n\n";
+
+       self.jqMail.dialog("open");
+     });
+
      // Enter key press
      jqInput.keyup(function(evt) {
+
        if (evt.keyCode === 13) {
          jqButtonSend.click();
        }
@@ -142,6 +179,7 @@ define(['jqdlgext'], function() {
      * Lay out the chat window.
      */
     chatjs.Chat.prototype.layoutChatWindow = function() {
+
       var msgArea = $('.view-chat-msgarea', this.container);
       var headerHeight = parseInt($('.view-chat-msgarea-header', msgArea).css('height'));
       var inputAreaHeight = parseInt($('.view-chat-msgarea-input', msgArea).css('height'));
@@ -156,23 +194,26 @@ define(['jqdlgext'], function() {
      * Initilize Preferences window's HTML and event handlers.
      */
     chatjs.Chat.prototype.initPreferencesWindow = function() {
-       var jqPreferences = $('<div></div>');
-       var self = this;
+      var self = this;
 
-       self.jqPreferences = jqPreferences;
-       // convert the previous div into a floating window with a close button
-       jqPreferences.dialog({
-         title: "Preferences",
-         modal: true,
-         autoOpen: false,
-         minHeight: 330,
-         height: 350,
-         minWidth: 450,
-         width: 600
-       });
+      var jqPreferences = $('<div></div>');
 
-       // add the HTML contents to the floating window
-       jqPreferences.append(
+      self.jqPreferences = jqPreferences;
+
+      // convert the previous div into a floating window with a close button
+      jqPreferences.dialog({
+        title: "Preferences",
+        modal: true,
+        autoOpen: false,
+        minHeight: 400,
+        height: 450,
+        minWidth: 400,
+        width: 450
+      });
+
+      // add the HTML contents to the floating window
+      jqPreferences.append(
+
        '<div class="view-chat-preferences">' +
           '<h3>Message style</h3>' +
           '<div>' +
@@ -212,29 +253,29 @@ define(['jqdlgext'], function() {
               '>Dark font on light background' +
           '</div>' +
        '</div>'
-       );
+      );
 
-       jqPreferences.data('preferences', {
-         msgStyle: 'headerbefore',
-         msgHeaderInfo: 'name',
-         fontSize: $('.view-chat-msgarea-text', self.container).css('fontSize'),
-         fontFamily: {standard: 'sans-serif', fixedwidth: 'monospace'},
-         currentTheme: 'darkbackground',
-         themes: {
-           'darkbackground': {
-             generalTheme: "view-chat-theme1",
-             headerAreaTheme: "view-chat-msgarea-header-theme1",
-             userAreaTheme: "view-chat-usersarea-theme1",
-             buttonSendTheme: "view-chat-msgarea-input-button-theme1"
-           },
-           'lightbackground': {
-             generalTheme: "view-chat-theme2",
-             headerAreaTheme: "view-chat-msgarea-header-theme2",
-             userAreaTheme: "view-chat-usersarea-theme2",
-             buttonSendTheme: "view-chat-msgarea-input-button-theme2"
-           }
-         }
-       });
+      jqPreferences.data('preferences', {
+        msgStyle: 'headerbefore',
+        msgHeaderInfo: 'name',
+        fontSize: $('.view-chat-msgarea-text', self.container).css('fontSize'),
+        fontFamily: {standard: 'sans-serif', fixedwidth: 'monospace'},
+        currentTheme: 'darkbackground',
+        themes: {
+          'darkbackground': {
+            generalTheme: "view-chat-theme1",
+            headerAreaTheme: "view-chat-msgarea-header-theme1",
+            userAreaTheme: "view-chat-usersarea-theme1",
+            buttonTheme: "view-chat-msgarea-button-theme1"
+          },
+          'lightbackground': {
+            generalTheme: "view-chat-theme2",
+            headerAreaTheme: "view-chat-msgarea-header-theme2",
+            userAreaTheme: "view-chat-usersarea-theme2",
+            buttonTheme: "view-chat-msgarea-button-theme2"
+          }
+        }
+      });
 
        //
        // UI event handlers
@@ -242,6 +283,7 @@ define(['jqdlgext'], function() {
 
        // change msg style or msg header
        $('.view-chat-preferences-msgstyle', jqPreferences).click(function() {
+
          var preferences = jqPreferences.data('preferences');
          var name = $(this).attr('name');
          var value = $(this).attr('value');
@@ -260,6 +302,7 @@ define(['jqdlgext'], function() {
 
        // change font size
        $('.view-chat-preferences-fontsize', jqPreferences).click(function() {
+
          var preferences = jqPreferences.data('preferences');
          var title = $(this).attr('title');
          var fontSize = preferences.fontSize;
@@ -293,6 +336,7 @@ define(['jqdlgext'], function() {
 
        // change font family
        $('.view-chat-preferences-fontfamily', jqPreferences).click(function() {
+
          var preferences = jqPreferences.data('preferences');
          var value = $(this).attr('value');
 
@@ -303,6 +347,7 @@ define(['jqdlgext'], function() {
 
        // change theme
        $('.view-chat-preferences-theme', jqPreferences).click(function() {
+
          var preferences = jqPreferences.data('preferences');
          var value = $(this).attr('value');
          var prevTheme = preferences.themes[preferences.currentTheme];
@@ -316,9 +361,77 @@ define(['jqdlgext'], function() {
          $('.view-chat-msgarea-text', self.container).removeClass(prevTheme.generalTheme).addClass(newTheme.generalTheme);
          $('.view-chat-msgarea-input', self.container).removeClass(prevTheme.generalTheme).addClass(newTheme.generalTheme);
          $('.view-chat-msgarea-input-input', self.container).removeClass(prevTheme.generalTheme).addClass(newTheme.generalTheme);
-         $('.view-chat-msgarea-input-button', self.container).removeClass(prevTheme.buttonSendTheme).addClass(newTheme.buttonSendTheme);
+         $('.view-chat-msgarea-button', self.container).removeClass(prevTheme.buttonTheme).addClass(newTheme.buttonTheme);
 
          $(self.container.parent()).css('borderColor', $('.view-chat-msgarea', self.container).css('borderColor'));
+       });
+    };
+
+    /**
+     * Initilize Mail window's HTML and event handlers.
+     */
+    chatjs.Chat.prototype.initMailWindow = function() {
+       var self = this;
+
+       var jqMail = $('<div></div>');
+
+       self.jqMail = jqMail;
+
+       // convert the previous div into a floating window with a close button
+       jqMail.dialog({
+         title: "Mail room id to collaborators",
+         modal: true,
+         autoOpen: false,
+         minHeight: 400,
+         height: 450,
+         minWidth: 400,
+         width: 450
+       });
+
+       // add the HTML contents to the floating window
+       jqMail.append(
+
+         '<div class="view-chat-mail">' +
+            '<textarea class="view-chat-mail-text view-chat-theme1"></textarea>' +
+            '<button class="view-chat-msgarea-button-theme1" type="button">Send mail</button>' +
+         '</div>'
+       );
+
+       //
+       // UI event handlers
+       //
+       $('button', jqMail).click(function() {
+
+         function validateEmail(email) {
+           var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+           return re.test(email);
+         }
+
+         var mailTextarea = $('.view-chat-mail-text', jqMail)[0];
+         var mailArr = [];
+
+         var lines = mailTextarea.value.split('\n');
+
+         for (var i=0; i<lines.length; i++) {
+
+           if (validateEmail(lines[i])) {
+             mailArr.push(lines[i]);
+           }
+         }
+
+         // send email with room id to collaborators
+         self.collab.sendRealtimeFileId(mailArr, function (resp) {
+
+           if (resp.error) {
+
+              mailTextarea.value += '\n\nCould not send mail!';
+
+           } else {
+
+             mailTextarea.value += '\n\nMail has been sent!';
+           }
+         });
        });
     };
 
@@ -328,6 +441,7 @@ define(['jqdlgext'], function() {
      * @param {Obj} chat message object.
      */
      chatjs.Chat.prototype.updateTextArea = function(msgObj) {
+
        var chatTextarea = $('.view-chat-msgarea-text', this.container)[0];
        var preferences = this.jqPreferences.data('preferences');
        var time = "";
@@ -359,6 +473,7 @@ define(['jqdlgext'], function() {
      * Update the list of collaborators in the UI.
      */
      chatjs.Chat.prototype.updateCollaboratorList = function() {
+
        var collaborators = this.collab.getCollaboratorList();
        var jqUsersArea = $('.view-chat-usersarea', this.container);
        var ul = $('ul', jqUsersArea).empty();
