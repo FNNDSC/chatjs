@@ -116,7 +116,7 @@ define(['jqdlgext'], function() {
      // UI event handlers
      //
      var jqButtonPreferences = $('.ui-dialog-titlebar-preferences', container.parent());
-     var jqButtonSend = $('.view-chat-msgarea-input .view-chat-msgarea-button', container);
+     var jqButtonSend = $('.view-chat-msgarea-input-button', container);
      var jqInput = $('.view-chat-msgarea-input-input', container);
 
      // Title bar's Preferences (gear) button click
