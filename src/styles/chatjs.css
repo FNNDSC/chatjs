@@ -34,9 +34,9 @@
   margin: 0;
   font-size: 0.8em;
   padding: 4px;
-  border-color: #DDE8BB;
+  border-color: black;
   background-color: black;
-  color: #EC9F3A;
+  color: #0091EA;
 }
 .view-chat-usersarea-theme1{
   border-color: #F9F9F9;
@@ -70,7 +70,6 @@
   width: 100%;
   overflow: auto;
   padding: 2px 4px;
-  font-weight: lighter;
 }
 .view-chat-msgarea-header-theme1{
   border-color: #757575;
