@@ -103,9 +103,9 @@ define(['jqdlgext'], function() {
      // hide the mail button for non-scene owners
      var jqButtonMail = $('.view-chat-msgarea-header .view-chat-msgarea-button', container);
 
-     // if (!self.collab.collabOwner) {
-     //   jqButtonMail.css('display', 'none');
-     // }
+     if (!self.collab.collabOwner) {
+       jqButtonMail.css('display', 'none');
+     }
 
      $(self.container.parent()).css('borderColor', $('.ui-dialog-titlebar', self.container).css('color'));
 
