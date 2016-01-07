@@ -58,7 +58,7 @@ define(['jqdlgext'], function() {
 
       // convert the previous div into a floating window with minimize, collapse and expand buttons
       container.dialog({
-        title: "Collaboration chat",
+        title: "Chat",
         closeOnEscape: false,
         minHeight: 400,
         height: 500,
@@ -88,7 +88,7 @@ define(['jqdlgext'], function() {
        '<div class="view-chat-msgarea view-chat-theme1">' +
          '<div class="view-chat-msgarea-header view-chat-msgarea-header-theme1">' +
           '<button class="view-chat-msgarea-button view-chat-msgarea-button-theme1" type="button" ' +
-            'title="Mail roomd id to collaborators">Mail</button>' +
+            'title="Mail roomd id to collaborators">Email Collaborators</button>' +
           '<span>Room id: ' + self.collab.realtimeFileId + '</span>' +
          '</div>' +
          '<textarea class="view-chat-msgarea-text view-chat-theme1" disabled>You are connected!</textarea>' +
@@ -103,9 +103,9 @@ define(['jqdlgext'], function() {
      // hide the mail button for non-scene owners
      var jqButtonMail = $('.view-chat-msgarea-header .view-chat-msgarea-button', container);
 
-     if (!self.collab.collabOwner) {
-       jqButtonMail.css('display', 'none');
-     }
+     // if (!self.collab.collabOwner) {
+     //   jqButtonMail.css('display', 'none');
+     // }
 
      $(self.container.parent()).css('borderColor', $('.ui-dialog-titlebar', self.container).css('color'));
 

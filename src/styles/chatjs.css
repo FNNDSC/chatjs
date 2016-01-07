@@ -69,8 +69,8 @@
   height: 2em;
   width: 100%;
   overflow: auto;
-  padding: 2px 4px;
 }
+
 .view-chat-msgarea-header-theme1{
   border-color: #757575;
   background-color: #757575;
@@ -99,6 +99,18 @@
   border-top: 1px solid;
   margin: 0;
   height: 2em;
+}
+
+.view-chat-msgarea-button{
+  cursor: pointer;
+  float: right;
+  height: 100%;
+  padding: 6px 14px;
+  font-weight: lighter;
+  border: none !important;
+  overflow: hidden;
+  color: #F9F9F9;
+  background-color: #455A64;
 }
 .view-chat-msgarea-input-button{
   cursor: pointer;
@@ -181,7 +193,7 @@
   margin: 0;
   padding: 6px 4px;
   position: relative;
-  color: #DDE8BB;
+  color: #f9f9f9;
   font-size: 0.8em;
   background-color: black;
 }
