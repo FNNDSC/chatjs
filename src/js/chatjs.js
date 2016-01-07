@@ -93,8 +93,9 @@ define(['jqdlgext'], function() {
          '</div>' +
          '<textarea class="view-chat-msgarea-text view-chat-theme1" disabled>You are connected!</textarea>' +
          '<div class="view-chat-msgarea-input view-chat-theme1">' +
-           '<button class="view-chat-msgarea-button view-chat-msgarea-button-theme1" type="button">Send msg</button>' +
            '<input class="view-chat-msgarea-input-input view-chat-theme1" type="text">' +
+           '<button class="view-chat-msgarea-input-button view-chat-msgarea-input-button-theme1"' +
+             'type="button">Send msg</button>' +
          '</div>' +
        '</div>'
      );
@@ -106,7 +107,7 @@ define(['jqdlgext'], function() {
        jqButtonMail.css('display', 'none');
      }
 
-     $(self.container.parent()).css('borderColor', $('.view-chat-msgarea', self.container).css('borderColor'));
+     $(self.container.parent()).css('borderColor', $('.ui-dialog-titlebar', self.container).css('color'));
 
      // lay out elements
      self.layoutChatWindow();
@@ -248,9 +249,9 @@ define(['jqdlgext'], function() {
           '<h3>Themes</h3>' +
           '<div>' +
             '<input class="view-chat-preferences-theme" type="radio" name="theme" value="darkbackground"' +
-              ' checked="checked">Light font on dark background<br>' +
+              ' checked="checked">Dark<br>' +
             '<input class="view-chat-preferences-theme" type="radio" name="theme" value="lightbackground"' +
-              '>Dark font on light background' +
+              '>Light' +
           '</div>' +
        '</div>'
       );
