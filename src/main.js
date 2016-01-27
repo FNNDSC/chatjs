@@ -18,7 +18,7 @@ require.config({
     utiljs: 'utiljs/src/js/utiljs',
     fmjs: 'fmjs/src/js/fmjs',
     gcjs: 'gcjs/src/js/gcjs',
-    referenceswin: '../../templates/referenceswin',
+    referenceswin: '../../templates/referenceswin.html',
     chatjs: '../chatjs'
   }
 });

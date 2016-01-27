@@ -3,7 +3,7 @@
  */
 
 // define a new module
-define(['text!referenceswin.html', 'jqdlgext'], function(referenceswin) {
+define(['text!referenceswin', 'jqdlgext'], function(referenceswin) {
 
   /**
    * Provide a namespace for the chat module
