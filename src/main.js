@@ -19,6 +19,7 @@ require.config({
     fmjs: 'fmjs/src/js/fmjs',
     gcjs: 'gcjs/src/js/gcjs',
     chatwin: '../../templates/chatwin.html',
+    mailwin: '../../templates/mailwin.html',
     preferenceswin: '../../templates/preferenceswin.html',
     chatjs: '../chatjs'
   }

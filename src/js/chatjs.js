@@ -3,7 +3,7 @@
  */
 
 // define a new module
-define(['text!chatwin', 'text!preferenceswin', 'jqdlgext'], function(chatwin, prefwin) {
+define(['text!chatwin', 'text!mailwin', 'text!preferenceswin', 'jqdlgext'], function(chatwin, mailwin, prefwin) {
 
   /**
    * Provide a namespace for the chat module
@@ -84,12 +84,14 @@ define(['text!chatwin', 'text!preferenceswin', 'jqdlgext'], function(chatwin, pr
      // add contents to the floating window from its HTML template
      container.append($(chatwin).filter('.view-chat'));
 
+     // set the room id
+     var jqRoomId = $('.view-chat-msgarea-header span', container);
+     jqRoomId.text(jqRoomId.text() + ' ' + self.collab.realtimeFileId);
+
      // hide the mail button for non-scene owners
      var jqButtonMail = $('.view-chat-msgarea-header .view-chat-msgarea-button', container);
 
-     if (!self.collab.collabOwner) {
-       jqButtonMail.css('display', 'none');
-     }
+     if (!self.collab.collabOwner) { jqButtonMail.css('display', 'none'); }
 
      $(self.container.parent()).css('borderColor', $('.ui-dialog-titlebar', self.container).css('color'));
 
@@ -332,14 +334,8 @@ define(['text!chatwin', 'text!preferenceswin', 'jqdlgext'], function(chatwin, pr
          width: 450
        });
 
-       // add the HTML contents to the floating window
-       jqMail.append(
-
-         '<div class="view-chat-mail">' +
-            '<textarea class="view-chat-mail-text view-chat-theme1"></textarea>' +
-            '<button class="view-chat-msgarea-button-theme1" type="button">Send mail</button>' +
-         '</div>'
-       );
+       // add contents to the floating window from its HTML template
+       jqMail.append($(mailwin).filter('.view-chat-mail'));
 
        //
        // UI event handlers

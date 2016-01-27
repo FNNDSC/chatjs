@@ -122,6 +122,7 @@
   font-size: small;
   font-weight: lighter;
   border:none !important;
+  float: right;
 }
 .view-chat-msgarea-input-button-theme1{
   color: #F9F9F9;
