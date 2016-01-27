@@ -3,7 +3,7 @@
  */
 
 // define a new module
-define(['jqdlgext'], function() {
+define(['text!referenceswin.html', 'jqdlgext'], function(referenceswin) {
 
   /**
    * Provide a namespace for the chat module
@@ -212,49 +212,8 @@ define(['jqdlgext'], function() {
         width: 450
       });
 
-      // add the HTML contents to the floating window
-      jqPreferences.append(
-
-       '<div class="view-chat-preferences">' +
-          '<h3>Message style</h3>' +
-          '<div>' +
-            '<input class="view-chat-preferences-msgstyle" type="radio" name="msgstyle" value="headerbefore"' +
-              ' checked="checked">Msg header on same line<br>' +
-            '<input class="view-chat-preferences-msgstyle" type="radio" name="msgstyle" value="headerabove"' +
-              '>Msg header on previous line' +
-          '</div>' +
-
-          '<h3>Message header info</h3>' +
-          '<div>' +
-            '<input class="view-chat-preferences-msgstyle" type="radio" name="msgheaderinfo" value="name"' +
-              ' checked="checked">Name<br>' +
-            '<input class="view-chat-preferences-msgstyle" type="radio" name="msgheaderinfo" value="timename"' +
-              '>[hh:mm] Name' +
-          '</div>' +
-
-          '<h3>Font size</h3>' +
-          '<div>' +
-            '<span class="view-chat-preferences-fontsize" title="decrease">-</span>' +
-            '<span class="view-chat-preferences-fontsize" title="increase">+</span>' +
-          '</div>' +
-
-          '<h3>Font family</h3>' +
-          '<div>' +
-            '<input class="view-chat-preferences-fontfamily" type="radio" name="fontfamily" value="standard"' +
-              ' checked="checked">Standard<br>' +
-            '<input class="view-chat-preferences-fontfamily" type="radio" name="fontfamily" value="fixedwidth"' +
-              '>Fixed width' +
-          '</div>' +
-
-          '<h3>Themes</h3>' +
-          '<div>' +
-            '<input class="view-chat-preferences-theme" type="radio" name="theme" value="darkbackground"' +
-              ' checked="checked">Dark<br>' +
-            '<input class="view-chat-preferences-theme" type="radio" name="theme" value="lightbackground"' +
-              '>Light' +
-          '</div>' +
-       '</div>'
-      );
+      // add contents to the floating window from its HTML template
+      jqPreferences.append($(referenceswin).filter('.view-chat-preferences'));
 
       jqPreferences.data('preferences', {
         msgStyle: 'headerbefore',

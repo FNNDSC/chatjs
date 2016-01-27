@@ -18,7 +18,7 @@
   border-right:0;
 }
 
-.ui-dialog, .ui-dialog-content{
+.ui-dialog .ui-dialog-content{
   border:0;
   margin: 0;
   padding: 0;

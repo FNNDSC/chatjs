@@ -14,9 +14,11 @@ require.config({
     jquery_ui: ['https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min', 'jquery-ui/jquery-ui.min'],
     jqdlgext: '../lib/jquery.dialogextend',
     gapi: 'https://apis.google.com/js/api',
+    text: 'text/text',
     utiljs: 'utiljs/src/js/utiljs',
     fmjs: 'fmjs/src/js/fmjs',
     gcjs: 'gcjs/src/js/gcjs',
+    referenceswin: '../../templates/referenceswin',
     chatjs: '../chatjs'
   }
 });
