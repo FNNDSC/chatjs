@@ -3,7 +3,7 @@
  */
 
 // define a new module
-define(['text!referenceswin', 'jqdlgext'], function(referenceswin) {
+define(['text!chatwin', 'text!preferenceswin', 'jqdlgext'], function(chatwin, prefwin) {
 
   /**
    * Provide a namespace for the chat module
@@ -81,24 +81,8 @@ define(['text!referenceswin', 'jqdlgext'], function(referenceswin) {
        '<span class="ui-icon ui-icon-gear" title="preferences">preferences</span></a>'
      );
 
-     // add the HTML contents to the floating window
-     container.append(
-
-       '<div class="view-chat-usersarea view-chat-usersarea-theme1"><ul></ul></div>' +
-       '<div class="view-chat-msgarea view-chat-theme1">' +
-         '<div class="view-chat-msgarea-header view-chat-msgarea-header-theme1">' +
-          '<button class="view-chat-msgarea-button view-chat-msgarea-button-theme1" type="button" ' +
-            'title="Mail roomd id to collaborators">Email Collaborators</button>' +
-          '<span>Room id: ' + self.collab.realtimeFileId + '</span>' +
-         '</div>' +
-         '<textarea class="view-chat-msgarea-text view-chat-theme1" disabled>You are connected!</textarea>' +
-         '<div class="view-chat-msgarea-input view-chat-theme1">' +
-           '<input class="view-chat-msgarea-input-input view-chat-theme1" type="text">' +
-           '<button class="view-chat-msgarea-input-button view-chat-msgarea-input-button-theme1"' +
-             'type="button">Send msg</button>' +
-         '</div>' +
-       '</div>'
-     );
+     // add contents to the floating window from its HTML template
+     container.append($(chatwin).filter('.view-chat'));
 
      // hide the mail button for non-scene owners
      var jqButtonMail = $('.view-chat-msgarea-header .view-chat-msgarea-button', container);
@@ -213,7 +197,7 @@ define(['text!referenceswin', 'jqdlgext'], function(referenceswin) {
       });
 
       // add contents to the floating window from its HTML template
-      jqPreferences.append($(referenceswin).filter('.view-chat-preferences'));
+      jqPreferences.append($(prefwin).filter('.view-chat-preferences'));
 
       jqPreferences.data('preferences', {
         msgStyle: 'headerbefore',
