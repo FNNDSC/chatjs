@@ -3,7 +3,7 @@
  *
  */
 
-define(['gcjs', 'chatjs'], function(cjs, chatjs) {
+define(['gcjsPackage', 'chatjsPackage'], function(cjs, chatjs) {
 
   describe('chatjs', function() {
     var chat;
@@ -24,15 +24,15 @@ define(['gcjs', 'chatjs'], function(cjs, chatjs) {
 
     it('chatjs.Chat.prototype.updateTextArea({user: chat.collab.collaboratorInfo.name, msg: "Hello"})' +
       ' should update text area with message: Hello',
-      function () {
+      function() {
         var chatTextarea = document.getElementsByClassName('view-chat-msgarea-text')[0];
 
         chat.updateTextArea({
           user: chat.collab.collaboratorInfo.name,
-          msg: "Hello"
+          msg: 'Hello'
         });
 
-        expect(chatTextarea.innerHTML).toContain("Hello");
+        expect(chatTextarea.innerHTML).toContain('Hello');
       }
     );
 
