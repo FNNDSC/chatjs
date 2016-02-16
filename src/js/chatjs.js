@@ -2,16 +2,15 @@
  * This module implements the realtime chat interface
  */
 
-var dependencies = [
-//local
-'../../../text/text!../templates/chatwin.html',
-'../../../text/text!../templates/mailwin.html',
-'../../../text/text!../templates/preferenceswin.html',
-'./lib/jquery.dialogextend'
-];
-
 // define a new module
-define(dependencies, function(chatwin, mailwin, prefwin) {
+define(
+  [
+  //local
+  '../../../text/text!../templates/chatwin.html',
+  '../../../text/text!../templates/mailwin.html',
+  '../../../text/text!../templates/preferenceswin.html',
+  './lib/jquery.dialogextend'
+  ], function(chatwin, mailwin, prefwin) {
 
   /**
    * Provide a namespace for the chat module
