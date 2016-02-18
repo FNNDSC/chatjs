@@ -12,52 +12,52 @@ define(
   './lib/jquery.dialogextend'
   ], function(chatwin, mailwin, prefwin) {
 
-  /**
-   * Provide a namespace for the chat module
-   *
-   * @namespace
-   */
-  var chatjs = chatjs || {};
+    /**
+     * Provide a namespace for the chat module
+     *
+     * @namespace
+     */
+    var chatjs = chatjs || {};
 
-  /**
-   * Class implementing the the realtime chat
-   *
-   * @constructor
-   * @param {Object} realtime collaborator object.
-   */
-  chatjs.Chat = function(collab) {
+    /**
+     * Class implementing the the realtime chat
+     *
+     * @constructor
+     * @param {Object} realtime collaborator object.
+     */
+    chatjs.Chat = function(collab) {
 
-    this.version = 0.0;
+      this.version = 0.0;
 
-    // chat's container (chat window content)
-    this.container = null;
+      // chat's container (chat window content)
+      this.container = null;
 
-    // jQuery object for the preferences' dialog window
-    this.jqPreferences = null;
+      // jQuery object for the preferences' dialog window
+      this.jqPreferences = null;
 
-    // jQuery object for the mail's dialog window
-    this.jqMail = null;
+      // jQuery object for the mail's dialog window
+      this.jqMail = null;
 
-    // collaborator object
-    this.collab = collab;
-  };
+      // collaborator object
+      this.collab = collab;
+    };
 
-  /**
-   * Initialize the chat.
-   */
-  chatjs.Chat.prototype.init = function() {
+    /**
+     * Initialize the chat.
+     */
+    chatjs.Chat.prototype.init = function() {
 
-    this.initChatWindow();
-    this.initPreferencesWindow();
-    this.initMailWindow();
-    this.collab.sendChatMsg('I have connected!');
-    this.updateCollaboratorList();
-  };
+      this.initChatWindow();
+      this.initPreferencesWindow();
+      this.initMailWindow();
+      this.collab.sendChatMsg('I have connected!');
+      this.updateCollaboratorList();
+    };
 
-  /**
-   * Initilize Chat window's HTML and event handlers.
-   */
-  chatjs.Chat.prototype.initChatWindow = function() {
+    /**
+     * Initilize Chat window's HTML and event handlers.
+     */
+    chatjs.Chat.prototype.initChatWindow = function() {
       var self = this;
 
       var container = $('<div></div>');
@@ -169,25 +169,25 @@ define(
 
     };
 
-  /**
-   * Lay out the chat window.
-   */
-  chatjs.Chat.prototype.layoutChatWindow = function() {
+    /**
+     * Lay out the chat window.
+     */
+    chatjs.Chat.prototype.layoutChatWindow = function() {
 
-    var msgArea = $('.view-chat-msgarea', this.container);
-    var headerHeight = parseInt($('.view-chat-msgarea-header', msgArea).css('height'));
-    var inputAreaHeight = parseInt($('.view-chat-msgarea-input', msgArea).css('height'));
+      var msgArea = $('.view-chat-msgarea', this.container);
+      var headerHeight = parseInt($('.view-chat-msgarea-header', msgArea).css('height'));
+      var inputAreaHeight = parseInt($('.view-chat-msgarea-input', msgArea).css('height'));
 
-    $('.view-chat-msgarea-text', msgArea).css({
+      $('.view-chat-msgarea-text', msgArea).css({
         top: headerHeight + 'px',
         height: 'calc(100% - ' + (inputAreaHeight + headerHeight) + 'px)'
       });
-  };
+    };
 
-  /**
-   * Initilize Preferences window's HTML and event handlers.
-   */
-  chatjs.Chat.prototype.initPreferencesWindow = function() {
+    /**
+     * Initilize Preferences window's HTML and event handlers.
+     */
+    chatjs.Chat.prototype.initPreferencesWindow = function() {
       var self = this;
 
       var jqPreferences = $('<div></div>');
@@ -320,10 +320,10 @@ define(
       });
     };
 
-  /**
-   * Initilize Mail window's HTML and event handlers.
-   */
-  chatjs.Chat.prototype.initMailWindow = function() {
+    /**
+     * Initilize Mail window's HTML and event handlers.
+     */
+    chatjs.Chat.prototype.initMailWindow = function() {
     var self = this;
 
     var jqMail = $('<div></div>');
@@ -382,99 +382,99 @@ define(
     });
   };
 
-  /**
-   * Update the chat text area with new text.
-   *
-   * @param {Obj} chat message object.
-   */
-  chatjs.Chat.prototype.updateTextArea = function(msgObj) {
+    /**
+     * Update the chat text area with new text.
+     *
+     * @param {Obj} chat message object.
+     */
+    chatjs.Chat.prototype.updateTextArea = function(msgObj) {
 
-    var chatTextarea = $('.view-chat-msgarea-text', this.container)[0];
-    var preferences = this.jqPreferences.data('preferences');
-    var time = '';
+      var chatTextarea = $('.view-chat-msgarea-text', this.container)[0];
+      var preferences = this.jqPreferences.data('preferences');
+      var time = '';
 
-    if (preferences.msgHeaderInfo === 'timename') {
-      // add timestamp to msg header
-      var d = new Date();
-      var h = (d.getHours() < 10 ? '0' : '') + d.getHours();
-      var m = (d.getMinutes() < 10 ? '0' : '') + d.getMinutes();
+      if (preferences.msgHeaderInfo === 'timename') {
+        // add timestamp to msg header
+        var d = new Date();
+        var h = (d.getHours() < 10 ? '0' : '') + d.getHours();
+        var m = (d.getMinutes() < 10 ? '0' : '') + d.getMinutes();
 
-      time = '[' + h + ':' + m + '] ';
-    }
-
-    if (preferences.msgStyle === 'headerbefore') {
-
-      chatTextarea.innerHTML += '&#xA;' + time + msgObj.user + ': ' + msgObj.msg;
-
-    } else {
-
-      // header above msg
-      chatTextarea.innerHTML += '&#xA;' + time + msgObj.user + ':' + '&#xA;' + msgObj.msg;
-    }
-
-    // scroll down to show last msg
-    chatTextarea.scrollTop = chatTextarea.scrollHeight;
-  };
-
-  /**
-   * Update the list of collaborators in the UI.
-   */
-  chatjs.Chat.prototype.updateCollaboratorList = function() {
-
-    var collaborators = this.collab.getCollaboratorList();
-    if (typeof(collaborators) !== 'undefined') {
-      var jqUsersArea = $('.view-chat-usersarea', this.container);
-      var ul = $('ul', jqUsersArea).empty();
-
-      for (var i = 0; i < collaborators.length; i++) {
-
-        if (collaborators[i].id === this.collab.collaboratorInfo.id) {
-
-          ul.prepend('<li>' + this.collab.collaboratorInfo.name + ' (me)</li>');
-
-        } else {
-
-          ul.append('<li>' + collaborators[i].name + '</li>');
-        }
+        time = '[' + h + ':' + m + '] ';
       }
 
-    }
-  };
+      if (preferences.msgStyle === 'headerbefore') {
 
-  /**
-   * Hide chat window.
-   */
-  chatjs.Chat.prototype.close = function() {
+        chatTextarea.innerHTML += '&#xA;' + time + msgObj.user + ': ' + msgObj.msg;
 
-    this.container.dialog('close');
-  };
+      } else {
 
-  /**
-   * Show chat window.
-   */
-  chatjs.Chat.prototype.open = function() {
+        // header above msg
+        chatTextarea.innerHTML += '&#xA;' + time + msgObj.user + ':' + '&#xA;' + msgObj.msg;
+      }
 
-    this.container.dialog('open');
-  };
+      // scroll down to show last msg
+      chatTextarea.scrollTop = chatTextarea.scrollHeight;
+    };
 
-  /**
-   * Whether the chat is currently open.
-   */
-  chatjs.Chat.prototype.isOpen = function() {
+    /**
+     * Update the list of collaborators in the UI.
+     */
+    chatjs.Chat.prototype.updateCollaboratorList = function() {
 
-    return this.container.dialog('isOpen');
-  };
+      var collaborators = this.collab.getCollaboratorList();
+      if (typeof(collaborators) !== 'undefined') {
+        var jqUsersArea = $('.view-chat-usersarea', this.container);
+        var ul = $('ul', jqUsersArea).empty();
 
-  /**
-   * Destroy all objects and remove html interface
-   */
-  chatjs.Chat.prototype.destroy = function() {
+        for (var i = 0; i < collaborators.length; i++) {
 
-    this.container.dialogExtend('restore');
-    this.container.dialog('destroy');
-    this.jqPreferences.dialog('destroy');
-    this.container.empty();
-  };
+          if (collaborators[i].id === this.collab.collaboratorInfo.id) {
 
-  return chatjs;
-});
+            ul.prepend('<li>' + this.collab.collaboratorInfo.name + ' (me)</li>');
+
+          } else {
+
+            ul.append('<li>' + collaborators[i].name + '</li>');
+          }
+        }
+
+      }
+    };
+
+    /**
+     * Hide chat window.
+     */
+    chatjs.Chat.prototype.close = function() {
+
+      this.container.dialog('close');
+    };
+
+    /**
+     * Show chat window.
+     */
+    chatjs.Chat.prototype.open = function() {
+
+      this.container.dialog('open');
+    };
+
+    /**
+     * Whether the chat is currently open.
+     */
+    chatjs.Chat.prototype.isOpen = function() {
+
+      return this.container.dialog('isOpen');
+    };
+
+    /**
+     * Destroy all objects and remove html interface
+     */
+    chatjs.Chat.prototype.destroy = function() {
+
+      this.container.dialogExtend('restore');
+      this.container.dialog('destroy');
+      this.jqPreferences.dialog('destroy');
+      this.container.empty();
+    };
+
+    return chatjs;
+  });
