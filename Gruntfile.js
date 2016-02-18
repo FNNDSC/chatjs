@@ -87,6 +87,10 @@ module.exports = function(grunt) {
       compile: {
         options: {
           baseUrl: '.',
+          paths: {
+            jquery: 'empty:', // does not include jquery in the output
+            jquery_ui: 'empty:', // does not include jquery_ui in the output
+          },
           include: 'dist/<%= pkg.name %>/src/js/<%= pkg.name %>.js',
           mainConfigFile: 'dist/<%= pkg.name %>/src/js/<%= pkg.name %>.js',
           out: 'dist/<%= pkg.name %>.min.js'
