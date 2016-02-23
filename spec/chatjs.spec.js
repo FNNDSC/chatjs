@@ -3,7 +3,7 @@
  *
  */
 
-define(['gcjsPackage', 'chatjsPackage'], function(cjs, chatjs) {
+define(['gcjs', 'chatjs'], function(cjs, chatjs) {
 
   describe('chatjs', function() {
 

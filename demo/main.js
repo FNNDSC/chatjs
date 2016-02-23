@@ -1,6 +1,6 @@
 require(['./config'], function() {
 
-  require(['gcjsPackage', 'chatjsPackage'], function(cjs, chat) {
+  require(['gcjs', 'chatjs'], function(cjs, chat) {
     // Entry point
 
     // Create a collaboration object

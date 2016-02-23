@@ -10,14 +10,14 @@ require.config({
 
     // bower packages
     {
-      name: 'gcjsPackage', // used for mapping...
+      name: 'gcjs', // used for mapping...
       location: 'gcjs/src',   // relative to base url
       main: 'js/gcjs'
     },
 
     // local packages
     {
-      name: 'chatjsPackage', // used for mapping...
+      name: 'chatjs', // used for mapping...
       location: './',   // relative to base url
       main: 'chatjs/src/js/chatjs'
     }
